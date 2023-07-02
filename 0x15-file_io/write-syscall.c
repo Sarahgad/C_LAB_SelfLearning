@@ -11,21 +11,21 @@ int main(void)
 {
     /*Declaration*/
     int fd;
-    char buff[] = "No God Except Allah, & Mohamed The Massenger of Allah";
+    char buff[] = "No God Except Allah, & Mohamed The Massenger of Allah\n";
     /*Implement open file with creation mode, and permission*/
 
     fd = open("Shehadatin.txt", O_RDWR | O_CREAT, 0666);
     if (fd < 0)
     {
         perror("open");
-    return (-1);
+        return (-1);
     }
     /*Implement Write file*/
-    if (write(fd, buff, strlen(buff) > 1000))
+    if (write(fd, buff, strlen(buff)) > 100)
     {
         perror("write");
         return (-1);
     }
-
+    close(fd);
     return (0);
 }
