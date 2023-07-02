@@ -3,12 +3,12 @@
 *read_textfile - reads a text file and prints it.
 *@filename: pointer to point file name
 *@letters: unsigned integers indicate to no. of letters in the file
-*Return: (reads) always success.
+*Return: (writes) always success.
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
     /*Declaration*/
-    int fd;
+   ssize_t fd; /*declare the file decriptor with ssize_t because if comparisomn*/
     char *buff;
     ssize_t reads, writes;
 
@@ -16,10 +16,10 @@ ssize_t read_textfile(const char *filename, size_t letters)
     buff = malloc(sizeof(char) * letters);
     if (buff == NULL)
     {
-        return (NULL);
+        return (0);
     }
-    /*open file*/
-    fd = open("filename", O_RDONLY);
+    /*open file - set the variable withpit double qoutes*/
+    fd = open(filename, O_RDONLY);
     if (fd < 0)
     {
         perror("open");
@@ -27,17 +27,19 @@ ssize_t read_textfile(const char *filename, size_t letters)
     }
     /*read file*/
     reads = read(fd, buff, letters);
-    if (reads > letters)
+    if (reads >(ssize_t) letters)
     {
         perror("reads");
         return (0);
     }
     /*print file*/
-    writes = write(1, buff, reads);
-    if (write > reads) 
+    writes = write(STDOUT_FILENO, buff, reads);
+    if (writes > reads) 
     {
         return (0);
-    }   
-return (reads);
+    }
+ close(fd);
+free(buff); 
+return(writes);
 
 }
