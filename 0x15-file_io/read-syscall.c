@@ -9,14 +9,19 @@
 int main(void)
 {
     /*Declaration*/
-    int fp;
+    int fp; 
+    /*unlike file handling with function,
+    declaring the file output with integer of file decriptor,
+    not FILE data struct*/
     char buff [100];
+ /*Implement open file with system call*/
     fp = open("sarah.text", O_RDONLY);
     if(fp < 0)
     {
         perror("open");
         return -1;
     }
+    /*implement reading file with system call*/
     if(read(fp, buff, 100) > 100)
     {
         perror("read");
