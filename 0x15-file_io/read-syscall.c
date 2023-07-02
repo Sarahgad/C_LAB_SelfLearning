@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
+#include<string.h>
 /**
  *main - Entry Point
  *Practicing Reading File Trough sys.call
@@ -27,6 +28,8 @@ int main(void)
         perror("read");
         return -1;
     }
+    /*Terminated the string by null*/
+    buff[strlen(buff)] = '\0';
     printf ("file content: %s",buff);
     close(fp);
     return(0);
